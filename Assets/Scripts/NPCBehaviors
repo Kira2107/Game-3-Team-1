@@ -1,0 +1,167 @@
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting.FullSerializer;
+using UnityEngine;
+using UnityEngine.AI;
+
+public class NPCBehavior : MonoBehaviour
+{
+    public enum NPCState { Wander, Surprised, Seek, Possessed, Dead }
+    public NPCState currentState = NPCState.Wander; //NPCs start wandering
+
+    private NavMeshAgent agent;
+    public Transform[] patrolPoints;
+    private int currentPatrolIndex = 0;//First control point
+    private float surpriseDuration = 3f; //Time of surprise state
+    private float seekDuration = 15f; //Time of seek state
+    private float possessedDuration = 10f; //Time the NPC can be possessed for
+    private float stateTimer = 0f; //USed to keep track of the current state and how long the NPC will be in it for
+    private HashSet<Collider> discoveredBodies = new HashSet<Collider>(); //Stores already seen bodies
+
+    void Start()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        GoToNextPatrolPoint(); //Starts in wander state
+    }
+
+    void Update()
+    {
+        switch (currentState)
+        {
+            case NPCState.Wander:
+                WanderBehavior();
+                break;
+            case NPCState.Surprised:
+                SurpriseBehavior();
+                break;
+            case NPCState.Seek:
+                SeekBehavior();
+                break;
+            case NPCState.Possessed:
+                //Controlled by player, no AI movement
+                break;
+            case NPCState.Dead:
+                DeadBehavior();
+                break;
+        }
+    }
+
+    #region Wandering
+    void WanderBehavior()
+    {
+        //Walk along the patrol points
+        if (!agent.pathPending && agent.remainingDistance < 0.5f)
+        {
+            //Check for dead bodies before moving to the next patrol point
+            Collider body = CheckForDeadBody();
+            if (body != null && !discoveredBodies.Contains(body)) //React only to new bodies
+            {
+                discoveredBodies.Add(body); //Mark this body as discovered
+                currentState = NPCState.Surprised;
+                stateTimer = surpriseDuration;
+                return;
+            }
+            GoToNextPatrolPoint();
+        }
+    }
+
+    //Check if there is a dead body nearby
+    Collider CheckForDeadBody()
+    {
+        float detectionRadius = 5f;
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, detectionRadius);
+
+        foreach (Collider col in hitColliders)
+        {
+            if (col.CompareTag("DeadBody") && !discoveredBodies.Contains(col)) //Ensure dead bodies have this tag & ignore already seen bodies
+            {
+                return col; //Dead body found
+            }
+        }
+        return null;
+    }
+
+    //Change the patrol point for the NPC to walk to
+    private void GoToNextPatrolPoint()
+    {
+        if (patrolPoints.Length == 0) return;
+        agent.destination = patrolPoints[currentPatrolIndex].position;
+        currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
+    }
+    #endregion
+
+    #region Surprised/Seek
+    //The NPC has found something and should enter Surprised
+    public void AlertNPC(Vector3 source)
+    {
+        if (currentState == NPCState.Wander)
+        {
+            currentState = NPCState.Surprised;
+            stateTimer = surpriseDuration;
+        }
+    }
+
+    //The NPC is stunned before they start to investigate
+    void SurpriseBehavior()
+    {
+        stateTimer -= Time.deltaTime;
+        if (stateTimer <= 0)
+        {
+            currentState = NPCState.Seek;
+            stateTimer = seekDuration;
+        }
+    }
+
+    //The NPC starts to head towards the disturbance
+    void SeekBehavior()
+    {
+        if (stateTimer > 0)
+        {
+            stateTimer -= Time.deltaTime;
+            //Move towards the last known location of the disturbance
+            //Or move towards the player if they are spotted.
+            //agent.SetDestination(lastKnownPosition);
+        }
+        else //The search timer has worn off
+        {
+            if (!CheckForDeadBody())
+            {
+                currentState = NPCState.Wander;
+            }
+        }
+    }
+    #endregion
+
+    #region Possessed/Dead
+    public void PossessNPC()
+    {
+        currentState = NPCState.Possessed;
+        agent.isStopped = true;
+        stateTimer = possessedDuration;
+    }
+
+    public void PossessedBehavior()
+    {
+        if (stateTimer > 0)
+        {
+            stateTimer -= Time.deltaTime;
+        }
+        else //The body dies and the player is kicked out of control
+        {
+            ReleaseNPC();
+        }
+    }
+
+    public void ReleaseNPC()
+    {
+        currentState = NPCState.Dead;
+        DeadBehavior();
+    }
+    void DeadBehavior()
+    {
+        agent.isStopped = true;
+        //Play death animation, disable NPC AI
+        this.enabled = false;
+    }
+    #endregion
+}
