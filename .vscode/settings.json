@@ -53,6 +53,8 @@
     },
     "dotnet.defaultSolution": "Game-3-Team-1.sln",
     "cSpell.words": [
+        "Interactable",
+        "interactor",
         "Rigidbody"
     ]
 }

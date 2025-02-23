@@ -31,4 +31,34 @@ public class PlayerController : MonoBehaviour
         playerRb.velocity = moveDirection * moveSpeed;
     }
 
+    private void OnInteract()
+    {
+        // Call the TryInteract method
+        TryInteract();
+    }
+
+    private void OnDrawGizmos()
+    {
+        // Draw a sphere around the player
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, 2f);
+    }
+
+    private void TryInteract()
+    {
+        // Get all colliders in a sphere around the player
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 2f);
+
+        // Loop through all colliders
+        foreach (var hitCollider in hitColliders)
+        {
+            // Check if the collider has an IInteractable component
+            if (hitCollider.TryGetComponent(out IInteractable interactable))
+            {
+                // Call the Interact method on the IInteractable component
+                interactable.Interactable(gameObject);
+            }
+        }
+    }
+
 }
