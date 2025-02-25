@@ -239,6 +239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  cameraTransform: {fileID: 0}
 --- !u!114 &344515983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -667,8 +668,39 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5728943466921454694, guid: 7e2eeedbc9b1ae547b562c12399f9987, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2079439083}
   m_SourcePrefab: {fileID: 100100000, guid: 7e2eeedbc9b1ae547b562c12399f9987, type: 3}
+--- !u!1 &2079439082 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5728943466921454694, guid: 7e2eeedbc9b1ae547b562c12399f9987, type: 3}
+  m_PrefabInstance: {fileID: 2079439081}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &2079439083
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2079439082}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.16968672
+  m_Height: 1.0057853
+  m_Direction: 1
+  m_Center: {x: 0.02005071, y: 0.47988433, z: 0}
 --- !u!1001 &7978011673458414050
 PrefabInstance:
   m_ObjectHideFlags: 0
