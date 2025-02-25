@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 
     //Player move speed
     [SerializeField] private float moveSpeed;
+    public Transform cameraTransform;
 
     // Start is called before the first frame update
     void Start()
@@ -26,8 +27,22 @@ public class PlayerController : MonoBehaviour
 
     private void OnMove(InputValue value)
     {
-        // Move the player
-        Vector3 moveDirection = new Vector3(value.Get<Vector2>().x, 0, value.Get<Vector2>().y);
+        Vector2 input = value.Get<Vector2>();
+        
+        // Get camera forward direction, ignoring the Y axis (so movement remains on the XZ plane)
+        Vector3 camForward = cameraTransform.forward;
+        camForward.y = 0;
+        camForward.Normalize();
+
+        // Get camera right direction
+        Vector3 camRight = cameraTransform.right;
+        camRight.y = 0;
+        camRight.Normalize();
+
+        // Calculate movement direction based on camera orientation
+        Vector3 moveDirection = camForward * input.y + camRight * input.x;
+
+        // Apply velocity
         playerRb.velocity = moveDirection * moveSpeed;
     }
 
