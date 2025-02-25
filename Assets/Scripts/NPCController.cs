@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public enum NPCState
 {
@@ -165,5 +166,13 @@ public class NPCController : MonoBehaviour
     public void AlertNPC(Vector3 disturbanceLocation)
     {
         EnterSeekState(disturbanceLocation);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 }
