@@ -22,11 +22,11 @@ public class CameraObstructionHandler : MonoBehaviour
 
     RaycastHit[] hits1 = Physics.RaycastAll(transform.position, raydirection, raydirection.magnitude, wallLayer);
 
-    Debug.Log("Raycast hit count: " + hits1.Length); // Log how many objects it hits
+    // Debug.Log("Raycast hit count: " + hits1.Length); // Log how many objects it hits
 
     foreach (RaycastHit hit in hits1)
     {
-        Debug.Log("Raycast hit: " + hit.collider.gameObject.name);
+        // Debug.Log("Raycast hit: " + hit.collider.gameObject.name);
     }
 
         // Reset previously transparent walls
@@ -54,7 +54,7 @@ public class CameraObstructionHandler : MonoBehaviour
 
             if (wallRenderer != null)
             {
-                Debug.Log("Changing transparency for: " + wallRenderer.gameObject.name);
+                // Debug.Log("Changing transparency for: " + wallRenderer.gameObject.name);
 
                 // Save original colors if not already stored
                 if (!originalColors.ContainsKey(wallRenderer))

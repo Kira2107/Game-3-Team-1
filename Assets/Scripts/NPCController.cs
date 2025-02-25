@@ -168,11 +168,12 @@ public class NPCController : MonoBehaviour
         EnterSeekState(disturbanceLocation);
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision other)
     {
-        if (other.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            Debug.Log($"Player has been caught by {gameObject.name}!");
+            SceneManager.LoadScene(1);
         }
     }
 }
