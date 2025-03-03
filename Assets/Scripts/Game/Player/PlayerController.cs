@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed;
     public Transform cameraTransform;
 
+    //interaction size
+    public float interactRadius = 1f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,13 +59,13 @@ public class PlayerController : MonoBehaviour
     {
         // Draw a sphere around the player
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 2f);
+        Gizmos.DrawWireSphere(transform.position, interactRadius);
     }
 
     private void TryInteract()
     {
         // Get all colliders in a sphere around the player
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 2f);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, interactRadius);
 
         // Loop through all colliders
         foreach (var hitCollider in hitColliders)
