@@ -876,6 +876,7 @@ MonoBehaviour:
   rotationSpeed: 5
   angle: 0
   isPossessed: 0
+  enemySpawner: {fileID: 0}
 --- !u!195 &3333196289354794583
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -883,7 +884,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6324699493340728394}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 2

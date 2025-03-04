@@ -29,12 +29,36 @@ public class NPCController : MonoBehaviour
     public bool isPossessed = false;  
 
     private NavMeshAgent agent;
+    [SerializeField] private EnemySpawner enemySpawner;
+
+    void Awake()
+    {
+        GetComponent<NavMeshAgent>().enabled = false;
+        transform.position = patrolPoints[0].position;
+    }
 
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        GoToNextPatrolPoint();
+        // GetComponent<NavMeshAgent>().enabled = true;
+        StartCoroutine(StartGame()); 
     }
+
+IEnumerator StartGame()
+{
+    yield return new WaitForSeconds(2f);
+
+    agent = GetComponent<NavMeshAgent>(); // Assign the agent before enabling
+    agent.enabled = true; // Now enable the agent
+
+    if (patrolPoints.Length == 0)
+    {
+        Debug.LogError("No patrol points found for NPC!");
+        yield break; // Exit the coroutine to avoid errors
+    }
+
+    GoToNextPatrolPoint();
+}
+
 
     void Update()
     {
