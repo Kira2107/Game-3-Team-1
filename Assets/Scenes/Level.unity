@@ -213,7 +213,7 @@ PrefabInstance:
     - target: {fileID: 7678994611730163095, guid: d3458ff63da41f346943d5d531c6240d, type: 3}
       propertyPath: prefabPool.Array.data[6]
       value: 
-      objectReference: {fileID: 7680198362232304604, guid: 0e867fb49472c7445b65fa4397b5090c, type: 3}
+      objectReference: {fileID: 5805057397497744281, guid: 0dd3e06a02ac6c44d8367aa14877a13d, type: 3}
     - target: {fileID: 8225739840067508088, guid: d3458ff63da41f346943d5d531c6240d, type: 3}
       propertyPath: m_Name
       value: MazeGenerator

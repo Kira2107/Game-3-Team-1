@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Search.Providers;
 using UnityEngine;
 using UnityEngine.UI;
 
