@@ -12,11 +12,18 @@ public class MainMenu : MonoBehaviour
     //Start is called before the first frame update
     void Start()
     {
-        playButton.onClick.AddListener(Play);
-        exitButton.onClick.AddListener(Exit);
-        settingsButton.onClick.AddListener(OpenSettings);
-        creditsButton.onClick.AddListener(OpenCredits);
-        closeCreditsButton.onClick.AddListener(CloseCredits);
+        if(SceneManager.GetActiveScene().buildIndex == 0)
+        {
+            playButton.onClick.AddListener(Play);
+            exitButton.onClick.AddListener(Exit);
+        }
+        if(SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            settingsButton.onClick.AddListener(OpenSettings);
+            creditsButton.onClick.AddListener(OpenCredits);
+            closeCreditsButton.onClick.AddListener(CloseCredits);
+        }
+        
     }
 
     //Update is called once per frame
