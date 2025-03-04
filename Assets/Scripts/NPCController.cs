@@ -173,7 +173,7 @@ public class NPCController : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log($"Player has been caught by {gameObject.name}!");
-            SceneManager.LoadScene(2);
+            FindObjectOfType<GameOverManager>().GameOver();
         }
     }
 }
