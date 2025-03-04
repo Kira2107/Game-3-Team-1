@@ -984,6 +984,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1312304481002635299}
+  - component: {fileID: 8038393948664885696}
+  - component: {fileID: 7266051637754902519}
   m_Layer: 0
   m_Name: Ship
   m_TagString: Untagged
@@ -1013,6 +1015,39 @@ Transform:
   - {fileID: 9158918317827407163}
   m_Father: {fileID: 3607989992470286085}
   m_LocalEulerAnglesHint: {x: -90.86, y: 0.88900757, z: 88.544}
+--- !u!114 &8038393948664885696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836885169712175769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 394b74a9691df8644ab4da08ebf4f3c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &7266051637754902519
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836885169712175769}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 11.153433, y: 19.179914, z: 10.11532}
+  m_Center: {x: 5.0767426, y: 8.88494, z: 0.92846483}
 --- !u!1 &1919352482491903012
 GameObject:
   m_ObjectHideFlags: 0

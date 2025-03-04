@@ -16,12 +16,15 @@ public class MainMenu : MonoBehaviour
         {
             playButton.onClick.AddListener(Play);
             exitButton.onClick.AddListener(Exit);
-        }
-        if(SceneManager.GetActiveScene().buildIndex == 1)
-        {
-            settingsButton.onClick.AddListener(OpenSettings);
             creditsButton.onClick.AddListener(OpenCredits);
             closeCreditsButton.onClick.AddListener(CloseCredits);
+            settingsButton.onClick.AddListener(OpenSettings);
+        }
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            
+            exitButton.onClick.AddListener(Exit);
+
         }
         
     }
