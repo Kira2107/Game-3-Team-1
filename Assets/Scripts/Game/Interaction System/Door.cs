@@ -23,7 +23,6 @@ public class Door : MonoBehaviour
             if(playerInventory.hasKey)
             {
                 Destroy(gameObject.transform.parent.gameObject);
-                FindObjectOfType<GameOverManager>().WinGame();
             }
         }
     }
