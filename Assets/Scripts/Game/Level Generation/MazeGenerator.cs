@@ -4,6 +4,8 @@ using UnityEngine;
 public class MazeGenerator : MonoBehaviour
 {
     public GameObject[] prefabPool;
+    [SerializeField] private GameObject startRoom;
+    [SerializeField] private GameObject endRoom;
     public int mazeLength = 5; // Number of prefabs to place
     private Vector3 currentPosition = Vector3.zero;
     private Quaternion currentRotation = Quaternion.identity;
@@ -15,9 +17,9 @@ public class MazeGenerator : MonoBehaviour
 
     void GenerateMaze()
     {
-        GameObject previousPrefab =  prefabPool[0];
+        GameObject previousPrefab =  startRoom;
 
-        for (int i = 0; i < mazeLength; i++)
+        for (int i = 0; i < mazeLength - 2; i++)
         {
             // Select a random prefab
             GameObject selectedPrefab = prefabPool[Random.Range(0, prefabPool.Length)];
@@ -39,6 +41,17 @@ public class MazeGenerator : MonoBehaviour
 
             // Update reference for the next segment
             previousPrefab = newSegment;
+        }
+
+        // Place the end room
+        GameObject endRoomInstance = Instantiate(endRoom, currentPosition, currentRotation);
+        Transform endRoomStart = endRoomInstance.transform.Find("StartPoint");
+        Transform previousEndRoom = previousPrefab.transform.Find("EndPoint");
+
+        if (endRoomStart != null && previousEndRoom != null)
+        {
+            Vector3 offset = endRoomStart.position - endRoomInstance.transform.position;
+            endRoomInstance.transform.position = previousEndRoom.position - offset;
         }
     }
 }
