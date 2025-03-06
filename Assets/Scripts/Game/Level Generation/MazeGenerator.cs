@@ -1,17 +1,31 @@
 using System.Collections.Generic;
+using System.Collections;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MazeGenerator : MonoBehaviour
 {
-    public GameObject[] prefabPool;
+    public List<GameObject> prefabPool;
+    private List<GameObject> prefabPoolCopy = new List<GameObject>();
     [SerializeField] private GameObject startRoom;
     [SerializeField] private GameObject endRoom;
-    public int mazeLength = 5; // Number of prefabs to place
+    // public int mazeLength = 5; // Number of prefabs to place
     private Vector3 currentPosition = Vector3.zero;
     private Quaternion currentRotation = Quaternion.identity;
 
     void Start()
     {
+        for(int i =0; i<prefabPool.Count; i++)
+        {
+            prefabPoolCopy.Add(prefabPool[i]);
+        }
+        StartCoroutine(GenerateLevel());
+    }
+
+    private IEnumerator GenerateLevel()
+    {
+        yield return new WaitForSeconds(1f);
         GenerateMaze();
     }
 
@@ -19,11 +33,12 @@ public class MazeGenerator : MonoBehaviour
     {
         GameObject previousPrefab =  startRoom;
 
-        for (int i = 0; i < mazeLength - 2; i++)
+        for (int i = 0; i < prefabPool.Count; i++)
         {
             // Select a random prefab
-            GameObject selectedPrefab = prefabPool[Random.Range(0, prefabPool.Length)];
+            GameObject selectedPrefab = prefabPoolCopy[Random.Range(0, prefabPoolCopy.Count)];
             GameObject newSegment = Instantiate(selectedPrefab, currentPosition, currentRotation);
+            prefabPoolCopy.Remove(selectedPrefab);
 
             if (previousPrefab != null)
             {

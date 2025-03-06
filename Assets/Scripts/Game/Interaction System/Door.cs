@@ -16,6 +16,11 @@ public class Door : MonoBehaviour
         
     }
 
+    void OnDrawGizmos()
+    {
+        
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if(other.TryGetComponent(out PlayerInventory playerInventory))
