@@ -144,6 +144,11 @@ IEnumerator StartGame()
             }
         }
 
+        if(lightsInLevel == null)
+        {
+            return true;
+        }
+
         return lightsInLevel.Count == numLightsOn;
 
     }
