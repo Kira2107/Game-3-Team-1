@@ -22,9 +22,7 @@ public class MainMenu : MonoBehaviour
         }
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-            
             exitButton.onClick.AddListener(Exit);
-
         }
         
     }
