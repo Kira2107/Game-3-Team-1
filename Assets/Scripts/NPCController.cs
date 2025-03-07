@@ -26,7 +26,9 @@ public class NPCController : MonoBehaviour
     private Vector3 lastKnownDisturbance;
     private bool hasSeenBody = false;  
 
-    public bool isPossessed = false;  
+    public bool isPossessed = false;
+
+    public List<Light> lightsInLevel;
 
     private NavMeshAgent agent;
     [SerializeField] private EnemySpawner enemySpawner;
@@ -130,6 +132,23 @@ IEnumerator StartGame()
         agent.enabled = false;
     }
 
+    bool AreLightsOff()
+    {
+        //private bool lightsOff = false;
+
+        //foreach(GameObject e in lightsInLevel)
+        //{
+
+        //}
+
+        if(lightsInLevel.Count > 1)
+        {
+            return lightsInLevel[0].enabled && lightsInLevel[1].enabled;
+        }
+
+        return lightsInLevel[0].enabled;
+    }
+
     void PossessedBehavior()
     {
         //Get player input (assuming the player uses WASD/Arrow keys for movement)
@@ -196,8 +215,15 @@ IEnumerator StartGame()
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log($"Player has been caught by {gameObject.name}!");
-            FindObjectOfType<GameOverManager>().GameOver();
+            if(AreLightsOff())
+            {
+                EnterPossessedState();
+            }
+            else if (!AreLightsOff())
+            {
+                Debug.Log($"Player has been caught by {gameObject.name}!");
+                FindObjectOfType<GameOverManager>().GameOver();
+            }
         }
     }
 }

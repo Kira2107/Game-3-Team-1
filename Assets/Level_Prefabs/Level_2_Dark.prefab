@@ -662,6 +662,9 @@ MonoBehaviour:
   rotationSpeed: 5
   angle: 0
   isPossessed: 0
+  lightsInLevel:
+  - {fileID: 1913592376818507331}
+  - {fileID: 6648679736004011152}
   enemySpawner: {fileID: 0}
 --- !u!195 &8867571187387705278
 NavMeshAgent:
