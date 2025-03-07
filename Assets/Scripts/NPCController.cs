@@ -134,19 +134,18 @@ IEnumerator StartGame()
 
     bool AreLightsOff()
     {
-        //private bool lightsOff = false;
+        int numLightsOn = 0;
 
-        //foreach(GameObject e in lightsInLevel)
-        //{
-
-        //}
-
-        if(lightsInLevel.Count > 1)
+        foreach(Light light in lightsInLevel)
         {
-            return lightsInLevel[0].enabled && lightsInLevel[1].enabled;
+            if(light.enabled)
+            {
+                numLightsOn++;
+            }
         }
 
-        return lightsInLevel[0].enabled;
+        return lightsInLevel.Count == numLightsOn;
+
     }
 
     void PossessedBehavior()
