@@ -5,18 +5,18 @@ using UnityEngine.InputSystem;
 
 public class FixPlayerController : MonoBehaviour
 {
-    // 玩家刚体
+    // Player's Rigidbody
     private Rigidbody playerRb;
-    // Animator 组件（挂载在父物体上）
+    // Animator component (attached to the parent object)
     private Animator animator;
 
-    // 玩家移动速度
+    // Player's movement speed
     [SerializeField] private float moveSpeed = 5f;
     
-    // 指向摄像机（例如 FreeCamera 或 Cinemachine FreeLook）
+    // Reference to the camera (e.g., FreeCamera or Cinemachine FreeLook)
     public Transform cameraTransform;
     
-    // 交互范围半径
+    // Interaction range radius
     public float interactRadius = 1f;
 
     void Start()
@@ -24,31 +24,31 @@ public class FixPlayerController : MonoBehaviour
         playerRb = GetComponent<Rigidbody>();
         if (playerRb == null)
         {
-            UnityEngine.Debug.LogError("Rigidbody 组件未找到，请检查该对象是否挂载了 Rigidbody！");
+            UnityEngine.Debug.LogError("Rigidbody component not found. Please ensure the object has a Rigidbody attached!");
         }
-        // 获取父物体上的 Animator 组件
+        // Get the Animator component from the parent object
         animator = GetComponent<Animator>();
         if (animator == null)
         {
-            UnityEngine.Debug.LogError("Animator 组件未找到，请检查该对象是否挂载了 Animator！");
+            UnityEngine.Debug.LogError("Animator component not found. Please ensure the object has an Animator attached!");
         }
         if (cameraTransform == null)
         {
-            UnityEngine.Debug.LogError("Camera Transform 未赋值，请在 Inspector 中设置！");
+            UnityEngine.Debug.LogError("Camera Transform is not assigned. Please set it in the Inspector!");
         }
-        // 隐藏鼠标并锁定光标
+        // Hide the mouse cursor and lock it
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        // 初始时设置为移动状态（根据需要可修改）
+        // Initially set to moving state (modify as needed)
         animator.SetBool("isMoving", true);
     }
 
-    // 移动输入处理
+    // Handle movement input
     private void OnMove(InputValue value)
     {
         Vector2 input = value.Get<Vector2>();
 
-        // 获取摄像机正方向和右方向，但忽略 Y 轴分量
+        // Get the camera's forward and right directions, ignoring the Y-axis component
         Vector3 camForward = cameraTransform.forward;
         camForward.y = 0;
         camForward.Normalize();
@@ -57,45 +57,45 @@ public class FixPlayerController : MonoBehaviour
         camRight.y = 0;
         camRight.Normalize();
 
-        // 根据摄像机方向计算玩家移动方向
+        // Calculate player's movement direction based on camera's orientation
         Vector3 moveDirection = camForward * input.y + camRight * input.x;
         playerRb.velocity = moveDirection * moveSpeed;
 
-        // 当移动输入存在时，播放移动动画
+        // Play moving animation when there is movement input
         if (animator != null)
         {
-            // 这里设定一个阈值，避免误判轻微抖动为移动
+            // Set a threshold to avoid slight jitter being detected as movement
             bool isMoving = moveDirection.sqrMagnitude > 0.001f;
             animator.SetBool("isMoving", isMoving);
         }
     }
 
-    // 在 LateUpdate 中更新玩家朝向，使其始终面向摄像机的水平方向
+    // Update player's facing direction in LateUpdate so that it always faces the camera's horizontal direction
     private void LateUpdate()
     {
         if (cameraTransform != null)
         {
-            // 获取相机的水平旋转（绕 Y 轴）
+            // Get the camera's horizontal rotation (around the Y-axis)
             float cameraYaw = cameraTransform.eulerAngles.y;
-            // 将玩家的旋转设置为相机的水平旋转
+            // Set the player's rotation to match the camera's horizontal rotation
             transform.rotation = Quaternion.Euler(0, cameraYaw, 0);
         }
     }
 
-    // 交互输入处理
+    // Handle interaction input
     private void OnInteract()
     {
         TryInteract();
     }
 
-    // 在 Scene 视图中绘制交互范围的球体（便于调试）
+    // Draw a sphere representing the interaction range in the Scene view for debugging purposes
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, interactRadius);
     }
 
-    // 检测并执行交互
+    // Detect and execute interaction
     private void TryInteract()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, interactRadius);
