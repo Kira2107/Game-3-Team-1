@@ -7,11 +7,13 @@ public class FixPlayerController : MonoBehaviour
 {
     // 玩家刚体
     private Rigidbody playerRb;
+    // Animator 组件（挂载在父物体上）
+    private Animator animator;
 
     // 玩家移动速度
     [SerializeField] private float moveSpeed = 5f;
     
-    // 这里的 cameraTransform 指向你的 FreeCamera（或者 Cinemachine FreeLook 的相机）
+    // 指向摄像机（例如 FreeCamera 或 Cinemachine FreeLook）
     public Transform cameraTransform;
     
     // 交互范围半径
@@ -22,15 +24,22 @@ public class FixPlayerController : MonoBehaviour
         playerRb = GetComponent<Rigidbody>();
         if (playerRb == null)
         {
-            Debug.LogError("Rigidbody 组件未找到，请检查该对象是否挂载了 Rigidbody！");
+            UnityEngine.Debug.LogError("Rigidbody 组件未找到，请检查该对象是否挂载了 Rigidbody！");
+        }
+        // 获取父物体上的 Animator 组件
+        animator = GetComponent<Animator>();
+        if (animator == null)
+        {
+            UnityEngine.Debug.LogError("Animator 组件未找到，请检查该对象是否挂载了 Animator！");
         }
         if (cameraTransform == null)
         {
-            Debug.LogError("Camera Transform 未赋值，请在 Inspector 中设置！");
+            UnityEngine.Debug.LogError("Camera Transform 未赋值，请在 Inspector 中设置！");
         }
         // 隐藏鼠标并锁定光标
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        animator.SetBool("isMoving", true);
     }
 
     // 移动输入处理
@@ -38,7 +47,7 @@ public class FixPlayerController : MonoBehaviour
     {
         Vector2 input = value.Get<Vector2>();
 
-        // 获取相机正方向和右方向，但忽略 Y 轴分量
+        // 获取摄像机正方向和右方向，但忽略 Y 轴分量
         Vector3 camForward = cameraTransform.forward;
         camForward.y = 0;
         camForward.Normalize();
@@ -47,21 +56,26 @@ public class FixPlayerController : MonoBehaviour
         camRight.y = 0;
         camRight.Normalize();
 
-        // 根据相机方向计算玩家移动方向
+        // 根据摄像机方向计算玩家移动方向
         Vector3 moveDirection = camForward * input.y + camRight * input.x;
-
-        // 应用速度
         playerRb.velocity = moveDirection * moveSpeed;
+
+        // 当移动输入存在时，播放移动动画
+        if (animator != null)
+        {
+            // 这里设定一个阈值，避免误判轻微抖动为移动
+            bool isMoving = moveDirection.sqrMagnitude > 0.001f;
+           //animator.SetBool("isMoving", isMoving);
+        }
     }
 
-    // 在 LateUpdate 中更新玩家朝向，让玩家始终面向相机的水平方向
+    // 在 LateUpdate 中更新玩家朝向，使其始终面向摄像机的水平方向
     private void LateUpdate()
     {
         if (cameraTransform != null)
         {
-            // 只获取相机的 Y 轴旋转（忽略 X、Z 轴）
-            float cameraYaw = cameraTransform.eulerAngles.y;
-            transform.rotation = Quaternion.Euler(0, cameraYaw, 0);
+            //float cameraYaw = cameraTransform.eulerAngles.x;
+            //transform.rotation = Quaternion.Euler(-90, 0, 0);
         }
     }
 
@@ -71,7 +85,7 @@ public class FixPlayerController : MonoBehaviour
         TryInteract();
     }
 
-    // Scene 视图中绘制交互范围的球体（便于调试）
+    // 在 Scene 视图中绘制交互范围的球体（便于调试）
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
