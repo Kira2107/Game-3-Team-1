@@ -4339,7 +4339,7 @@ Transform:
   m_GameObject: {fileID: 6552621705232289468}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.799282, y: 10.404402, z: -6.4033003}
+  m_LocalPosition: {x: 4.799282, y: 10.46, z: -6.4033003}
   m_LocalScale: {x: 2.0951138, y: 2.0951138, z: 2.0951138}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4370,6 +4370,7 @@ MonoBehaviour:
   rotationSpeed: 5
   angle: 0
   isPossessed: 0
+  lightsInLevel: []
   enemySpawner: {fileID: 0}
 --- !u!195 &59406332821078342
 NavMeshAgent:

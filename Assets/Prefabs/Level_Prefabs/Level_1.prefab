@@ -5736,15 +5736,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2204802937826213255, guid: 6a8422a9cbbeee449b9e57d150b6ae24, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.8200002
+      value: 2.64
       objectReference: {fileID: 0}
     - target: {fileID: 2204802937826213255, guid: 6a8422a9cbbeee449b9e57d150b6ae24, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.19953442
+      value: 10.64
       objectReference: {fileID: 0}
     - target: {fileID: 2204802937826213255, guid: 6a8422a9cbbeee449b9e57d150b6ae24, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.5299997
+      value: -6.9
       objectReference: {fileID: 0}
     - target: {fileID: 2204802937826213255, guid: 6a8422a9cbbeee449b9e57d150b6ae24, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5783,6 +5783,10 @@ PrefabInstance:
       value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 6712554777769313907, guid: 6a8422a9cbbeee449b9e57d150b6ae24, type: 3}
+      propertyPath: lightsInLevel.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6712554777769313907, guid: 6a8422a9cbbeee449b9e57d150b6ae24, type: 3}
       propertyPath: patrolPoints.Array.data[0]
       value: 
       objectReference: {fileID: 3188456060495006038}
@@ -5798,6 +5802,18 @@ PrefabInstance:
       propertyPath: patrolPoints.Array.data[3]
       value: 
       objectReference: {fileID: 7413306681736887245}
+    - target: {fileID: 6712554777769313907, guid: 6a8422a9cbbeee449b9e57d150b6ae24, type: 3}
+      propertyPath: lightsInLevel.Array.data[0]
+      value: 
+      objectReference: {fileID: 183603864294066648}
+    - target: {fileID: 6712554777769313907, guid: 6a8422a9cbbeee449b9e57d150b6ae24, type: 3}
+      propertyPath: lightsInLevel.Array.data[1]
+      value: 
+      objectReference: {fileID: 6319073058487361522}
+    - target: {fileID: 6712554777769313907, guid: 6a8422a9cbbeee449b9e57d150b6ae24, type: 3}
+      propertyPath: lightsInLevel.Array.data[2]
+      value: 
+      objectReference: {fileID: 585810951054785995}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -4875,7 +4875,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2204802937826213255, guid: 6a8422a9cbbeee449b9e57d150b6ae24, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10.41
+      value: 10.437
       objectReference: {fileID: 0}
     - target: {fileID: 2204802937826213255, guid: 6a8422a9cbbeee449b9e57d150b6ae24, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4922,6 +4922,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6712554777769313907, guid: 6a8422a9cbbeee449b9e57d150b6ae24, type: 3}
+      propertyPath: lightsInLevel.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6712554777769313907, guid: 6a8422a9cbbeee449b9e57d150b6ae24, type: 3}
       propertyPath: patrolPoints.Array.data[0]
       value: 
       objectReference: {fileID: 3382893665253042643}
@@ -4929,6 +4933,14 @@ PrefabInstance:
       propertyPath: patrolPoints.Array.data[1]
       value: 
       objectReference: {fileID: 8124121307190173628}
+    - target: {fileID: 6712554777769313907, guid: 6a8422a9cbbeee449b9e57d150b6ae24, type: 3}
+      propertyPath: lightsInLevel.Array.data[0]
+      value: 
+      objectReference: {fileID: 4522312759291402316}
+    - target: {fileID: 6712554777769313907, guid: 6a8422a9cbbeee449b9e57d150b6ae24, type: 3}
+      propertyPath: lightsInLevel.Array.data[1]
+      value: 
+      objectReference: {fileID: 4816446451259843471}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
