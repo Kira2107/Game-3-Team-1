@@ -39,6 +39,7 @@ public class FixPlayerController : MonoBehaviour
         // 隐藏鼠标并锁定光标
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        // 初始时设置为移动状态（根据需要可修改）
         animator.SetBool("isMoving", true);
     }
 
@@ -65,7 +66,7 @@ public class FixPlayerController : MonoBehaviour
         {
             // 这里设定一个阈值，避免误判轻微抖动为移动
             bool isMoving = moveDirection.sqrMagnitude > 0.001f;
-           //animator.SetBool("isMoving", isMoving);
+            animator.SetBool("isMoving", isMoving);
         }
     }
 
@@ -74,8 +75,10 @@ public class FixPlayerController : MonoBehaviour
     {
         if (cameraTransform != null)
         {
-            //float cameraYaw = cameraTransform.eulerAngles.x;
-            //transform.rotation = Quaternion.Euler(-90, 0, 0);
+            // 获取相机的水平旋转（绕 Y 轴）
+            float cameraYaw = cameraTransform.eulerAngles.y;
+            // 将玩家的旋转设置为相机的水平旋转
+            transform.rotation = Quaternion.Euler(0, cameraYaw, 0);
         }
     }
 
