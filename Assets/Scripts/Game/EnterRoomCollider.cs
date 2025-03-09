@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class EnterRoomCollider : MonoBehaviour
 {
-    public NPCController enemy;
+    public List<NPCController> enemies;
 
     void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            enemy.InRoomWithPlayer = true;
+            foreach(var controller in enemies)
+            {
+                controller.InRoomWithPlayer = true;
+            }
         }
     }
 }
