@@ -184,7 +184,7 @@ PrefabInstance:
       objectReference: {fileID: 4314761762988226565}
     - target: {fileID: 7678994611730163095, guid: d3458ff63da41f346943d5d531c6240d, type: 3}
       propertyPath: prefabPool.Array.size
-      value: 6
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7678994611730163095, guid: d3458ff63da41f346943d5d531c6240d, type: 3}
       propertyPath: prefabPool.Array.data[0]
@@ -213,7 +213,19 @@ PrefabInstance:
     - target: {fileID: 7678994611730163095, guid: d3458ff63da41f346943d5d531c6240d, type: 3}
       propertyPath: prefabPool.Array.data[6]
       value: 
-      objectReference: {fileID: 5805057397497744281, guid: 0dd3e06a02ac6c44d8367aa14877a13d, type: 3}
+      objectReference: {fileID: 5180885402498422022, guid: b749fc3fac02ada4ca6668168d8cda0e, type: 3}
+    - target: {fileID: 7678994611730163095, guid: d3458ff63da41f346943d5d531c6240d, type: 3}
+      propertyPath: prefabPool.Array.data[7]
+      value: 
+      objectReference: {fileID: 4623154439176557790, guid: 2075876e1b4060949b3b76c9b9bc9d31, type: 3}
+    - target: {fileID: 7678994611730163095, guid: d3458ff63da41f346943d5d531c6240d, type: 3}
+      propertyPath: prefabPool.Array.data[8]
+      value: 
+      objectReference: {fileID: 4794776804530367787, guid: 6018e3ab48a131d48ad724813d09d51a, type: 3}
+    - target: {fileID: 7678994611730163095, guid: d3458ff63da41f346943d5d531c6240d, type: 3}
+      propertyPath: prefabPool.Array.data[9]
+      value: 
+      objectReference: {fileID: 4794776804530367787, guid: 425f7c12f510f9c448e32a40ee8f48d9, type: 3}
     - target: {fileID: 8225739840067508088, guid: d3458ff63da41f346943d5d531c6240d, type: 3}
       propertyPath: m_Name
       value: MazeGenerator
