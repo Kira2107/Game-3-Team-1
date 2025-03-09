@@ -44,7 +44,8 @@ public class NPCController : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(StartGame()); 
+        StartCoroutine(StartGame());
+        InRoomWithPlayer = false;
     }
 
 IEnumerator StartGame()
