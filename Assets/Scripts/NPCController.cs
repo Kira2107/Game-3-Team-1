@@ -36,12 +36,10 @@ public class NPCController : MonoBehaviour
     void Awake()
     {
         GetComponent<NavMeshAgent>().enabled = false;
-        //transform.position = patrolPoints[0].position;
     }
 
     void Start()
     {
-        // GetComponent<NavMeshAgent>().enabled = true;
         StartCoroutine(StartGame()); 
     }
 
@@ -94,7 +92,6 @@ IEnumerator StartGame()
     {
         if (patrolPoints.Length == 0) return;
         agent.destination = patrolPoints[currentPatrolIndex].position;
-        //agent.Warp(patrolPoints[currentPatrolIndex].position);
         currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
     }
 
@@ -140,6 +137,7 @@ IEnumerator StartGame()
 
         foreach(Light light in lightsInLevel)
         {
+            // if any light is on, the player cannot possess the enemy
             if(light.enabled)
             {
                 return false;
@@ -147,7 +145,7 @@ IEnumerator StartGame()
         }
 
         return true;
-
+         
     }
 
     void PossessedBehavior()
