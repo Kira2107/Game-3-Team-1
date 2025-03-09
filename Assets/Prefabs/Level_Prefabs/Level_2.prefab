@@ -847,7 +847,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: b8aa918f5d6e93e48a287ec5caaf010d, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: bf6b38eb4cfc55344b565567a027d480, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1 &919132149155446097
 GameObject:
@@ -3851,7 +3851,7 @@ MonoBehaviour:
   angle: 0
   isPossessed: 0
   lightsInLevel:
-  - {fileID: 2560332407408475456}
+  - {fileID: 0}
   - {fileID: 4208857646026553795}
   enemySpawner: {fileID: 0}
 --- !u!195 &6626283322456784043
