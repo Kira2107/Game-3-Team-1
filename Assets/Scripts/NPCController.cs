@@ -28,7 +28,7 @@ public class NPCController : MonoBehaviour
 
     public bool isPossessed = false;
 
-    public List<Light> lightsInLevel;
+    public List<Light> lightsInLevel = new List<Light>();
 
     private NavMeshAgent agent;
     [SerializeField] private EnemySpawner enemySpawner;
@@ -91,8 +91,18 @@ IEnumerator StartGame()
     void GoToNextPatrolPoint()
     {
         if (patrolPoints.Length == 0) return;
-        agent.destination = patrolPoints[currentPatrolIndex].position;
-        currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
+
+        if(LightsOff())
+        {
+            agent.destination = patrolPoints[currentPatrolIndex].position;
+            currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
+        }
+        else
+        {
+            Debug.Log("Here");
+            EnterSeekState(FindObjectOfType<PlayerController>().Position);
+        }
+
     }
 
     public void EnterSeekState(Vector3 disturbanceLocation)
@@ -107,7 +117,11 @@ IEnumerator StartGame()
 
     void SeekBehavior()
     {
-        if (!agent.pathPending && agent.remainingDistance < 0.5f)
+        if(LightsOff())
+        {
+            ReturnToWander();
+        }
+        else if (!agent.pathPending && agent.remainingDistance < 0.5f)
         {
             Debug.Log("NPC is investigating...");
         }
@@ -214,16 +228,8 @@ IEnumerator StartGame()
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if(LightsOff())
-            {
-                Debug.Log($"{gameObject.name} has been caught by Player!");
-                EnterPossessedState();
-            }
-            else
-            {
-                Debug.Log($"Player has been caught by {gameObject.name}!");
-                FindObjectOfType<GameOverManager>().GameOver();
-            }
+            Debug.Log($"Player has been caught by {gameObject.name}!");
+            FindObjectOfType<GameOverManager>().GameOver();
         }
     }
 }
