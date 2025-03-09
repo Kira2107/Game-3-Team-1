@@ -28,14 +28,18 @@ public class NPCController : MonoBehaviour
 
     public bool isPossessed = false;
 
+    // allows you to set what lights to look at in editor
     public List<Light> lightsInLevel = new List<Light>();
 
     private NavMeshAgent agent;
     [SerializeField] private EnemySpawner enemySpawner;
 
+    public bool InRoomWithPlayer { get; set; }
+
     void Awake()
     {
         GetComponent<NavMeshAgent>().enabled = false;
+
     }
 
     void Start()
@@ -97,9 +101,8 @@ IEnumerator StartGame()
             agent.destination = patrolPoints[currentPatrolIndex].position;
             currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
         }
-        else
+        else if (InRoomWithPlayer)
         {
-            Debug.Log("Here");
             EnterSeekState(FindObjectOfType<PlayerController>().Position);
         }
 
