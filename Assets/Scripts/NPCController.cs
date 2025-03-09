@@ -36,7 +36,7 @@ public class NPCController : MonoBehaviour
     void Awake()
     {
         GetComponent<NavMeshAgent>().enabled = false;
-        transform.position = patrolPoints[0].position;
+        //transform.position = patrolPoints[0].position;
     }
 
     void Start()
@@ -50,6 +50,7 @@ IEnumerator StartGame()
     yield return new WaitForSeconds(2f);
 
     agent = GetComponent<NavMeshAgent>(); // Assign the agent before enabling
+    agent.Warp(patrolPoints[0].position); // Assign player position before enabling
     agent.enabled = true; // Now enable the agent
 
     if (patrolPoints.Length == 0)
@@ -93,6 +94,7 @@ IEnumerator StartGame()
     {
         if (patrolPoints.Length == 0) return;
         agent.destination = patrolPoints[currentPatrolIndex].position;
+        //agent.Warp(patrolPoints[currentPatrolIndex].position);
         currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
     }
 
@@ -132,7 +134,7 @@ IEnumerator StartGame()
         agent.enabled = false;
     }
 
-    bool AreLightsOff()
+    bool LightsOff()
     {
         int numLightsOn = 0;
 
@@ -140,16 +142,11 @@ IEnumerator StartGame()
         {
             if(light.enabled)
             {
-                numLightsOn++;
+                return false;
             }
         }
 
-        if(lightsInLevel == null)
-        {
-            return true;
-        }
-
-        return lightsInLevel.Count == numLightsOn;
+        return true;
 
     }
 
@@ -219,11 +216,12 @@ IEnumerator StartGame()
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if(AreLightsOff())
+            if(LightsOff())
             {
+                Debug.Log($"{gameObject.name} has been caught by Player!");
                 EnterPossessedState();
             }
-            else if (!AreLightsOff())
+            else
             {
                 Debug.Log($"Player has been caught by {gameObject.name}!");
                 FindObjectOfType<GameOverManager>().GameOver();
