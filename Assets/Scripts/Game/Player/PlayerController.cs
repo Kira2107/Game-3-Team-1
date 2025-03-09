@@ -20,14 +20,16 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
-        Cursor.lockState = CursorLockMode.Locked; //Locks the cursor to the center of the screen
-        Cursor.visible = false; //Hides the cursor
+        // Cursor.lockState = CursorLockMode.Locked; //Locks the cursor to the center of the screen
+        // Cursor.visible = false; //Hides the cursor
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        // Hide the mouse cursor and lock it
+        // Cursor.visible = false;
+        // Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void OnMove(InputValue value)

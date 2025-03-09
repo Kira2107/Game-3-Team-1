@@ -1559,6 +1559,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2829825783270251018, guid: 15be177317b81054a93b5c974116c9c7, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3669717021859608749, guid: 15be177317b81054a93b5c974116c9c7, type: 3}
       propertyPath: cameraTransform
       value: 
@@ -1631,6 +1635,14 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8944073122489516037, guid: 15be177317b81054a93b5c974116c9c7, type: 3}
+      propertyPath: moveSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8944073122489516037, guid: 15be177317b81054a93b5c974116c9c7, type: 3}
+      propertyPath: cameraTransform
+      value: 
+      objectReference: {fileID: 186752352}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

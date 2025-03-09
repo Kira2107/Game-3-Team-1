@@ -30,7 +30,7 @@ public class MainMenu : MonoBehaviour
     //Update is called once per frame
     void Update()
     {
-        
+        // Cursor.visible = true;
     }
 
     private void Play()
