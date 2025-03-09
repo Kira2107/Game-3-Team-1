@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     //interaction size
     public float interactRadius = 1f;
 
+    public Vector3 Position { get; private set; }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +53,8 @@ public class PlayerController : MonoBehaviour
 
         // Apply velocity
         playerRb.velocity = moveDirection * moveSpeed;
+
+        Position = playerRb.position;
     }
 
     private void OnInteract()

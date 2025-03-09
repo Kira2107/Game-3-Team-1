@@ -3851,7 +3851,7 @@ MonoBehaviour:
   angle: 0
   isPossessed: 0
   lightsInLevel:
-  - {fileID: 0}
+  - {fileID: 5387971806715633796}
   - {fileID: 4208857646026553795}
   enemySpawner: {fileID: 0}
 --- !u!195 &6626283322456784043

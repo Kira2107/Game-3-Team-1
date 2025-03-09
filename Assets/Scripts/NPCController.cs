@@ -28,21 +28,24 @@ public class NPCController : MonoBehaviour
 
     public bool isPossessed = false;
 
-    public List<Light> lightsInLevel;
+    // allows you to set what lights to look at in editor
+    public List<Light> lightsInLevel = new List<Light>();
 
     private NavMeshAgent agent;
     [SerializeField] private EnemySpawner enemySpawner;
 
+    public bool InRoomWithPlayer { get; set; }
+
     void Awake()
     {
         GetComponent<NavMeshAgent>().enabled = false;
-        //transform.position = patrolPoints[0].position;
+
     }
 
     void Start()
     {
-        // GetComponent<NavMeshAgent>().enabled = true;
-        StartCoroutine(StartGame()); 
+        StartCoroutine(StartGame());
+        InRoomWithPlayer = false;
     }
 
 IEnumerator StartGame()
@@ -93,9 +96,17 @@ IEnumerator StartGame()
     void GoToNextPatrolPoint()
     {
         if (patrolPoints.Length == 0) return;
-        agent.destination = patrolPoints[currentPatrolIndex].position;
-        //agent.Warp(patrolPoints[currentPatrolIndex].position);
-        currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
+
+        if(LightsOff())
+        {
+            agent.destination = patrolPoints[currentPatrolIndex].position;
+            currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
+        }
+        else if (InRoomWithPlayer)
+        {
+            EnterSeekState(FindObjectOfType<PlayerController>().Position);
+        }
+
     }
 
     public void EnterSeekState(Vector3 disturbanceLocation)
@@ -110,7 +121,11 @@ IEnumerator StartGame()
 
     void SeekBehavior()
     {
-        if (!agent.pathPending && agent.remainingDistance < 0.5f)
+        if(LightsOff())
+        {
+            ReturnToWander();
+        }
+        else if (!agent.pathPending && agent.remainingDistance < 0.5f)
         {
             Debug.Log("NPC is investigating...");
         }
@@ -140,6 +155,7 @@ IEnumerator StartGame()
 
         foreach(Light light in lightsInLevel)
         {
+            // if any light is on, the player cannot possess the enemy
             if(light.enabled)
             {
                 return false;
@@ -147,7 +163,7 @@ IEnumerator StartGame()
         }
 
         return true;
-
+         
     }
 
     void PossessedBehavior()
@@ -216,16 +232,8 @@ IEnumerator StartGame()
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            if(LightsOff())
-            {
-                Debug.Log($"{gameObject.name} has been caught by Player!");
-                EnterPossessedState();
-            }
-            else
-            {
-                Debug.Log($"Player has been caught by {gameObject.name}!");
-                FindObjectOfType<GameOverManager>().GameOver();
-            }
+            Debug.Log($"Player has been caught by {gameObject.name}!");
+            FindObjectOfType<GameOverManager>().GameOver();
         }
     }
 }
