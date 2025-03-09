@@ -2130,9 +2130,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playButton: {fileID: 44697474}
-  settingsButton: {fileID: 0}
-  creditsButton: {fileID: 0}
-  closeCreditsButton: {fileID: 0}
+  settingsButton: {fileID: 740182465}
+  creditsButton: {fileID: 2096198107}
+  closeCreditsButton: {fileID: 1559192138}
   exitButton: {fileID: 1353052310}
   settingsMenu: {fileID: 668782166}
   creditsMenu: {fileID: 335076890}

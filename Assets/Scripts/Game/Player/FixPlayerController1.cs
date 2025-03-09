@@ -36,9 +36,7 @@ public class FixPlayerController : MonoBehaviour
         {
             UnityEngine.Debug.LogError("Camera Transform is not assigned. Please set it in the Inspector!");
         }
-        // Hide the mouse cursor and lock it
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+       
         // Initially set to moving state (modify as needed)
         animator.SetBool("isMoving", true);
     }
